@@ -1,13 +1,14 @@
 import * as dao from "../../users/users-dao.js";
 
 const login = async (req, res) => {
-    const user = await dao.findUserByCredentials(req.body);
-    // users.find((user) => user.username === req.body.username);
+    const username = req.body.username;
+    const password = req.body.password;
+    const user = await dao.findUserByCredentials(username, password);
     if (user) {
         req.session["currentUser"] = user;
         res.json(user);
     } else {
-        res.sendStatus(401);
+        res.sendStatus(404);
     }
 };
 
@@ -29,11 +30,17 @@ const profile = async (req, res) => {
         res.sendStatus(404);
         return;
     }
-    res.send(currentUser);
+    res.json(currentUser);
+};
+
+const logout = async (req, res) => {
+    req.session.destroy();
+    res.sendStatus(200);
 };
 
 export default (app) => {
     app.post("/api/users/register", register);
     app.post("/api/users/login", login);
+    app.post("/api/users/logout", logout)
     app.get("/api/users/profile", profile);
 };
