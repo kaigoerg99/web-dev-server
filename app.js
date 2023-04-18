@@ -23,11 +23,6 @@ const port = 4000;
 
 UsersController(app);
 
-const welcome = (req, res) => {
-    res.send("Welcome to Node.js!");
-};
-app.get("/", welcome);
-
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
