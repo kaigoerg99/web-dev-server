@@ -1,8 +1,9 @@
 import express from "express";
 import cors from "cors";
 import session from "express-session";
-//TODO: import controllers
-//mongoose.connect("mongodb://127.0.0.1:27017/tuiter");
+import UsersController from "./controllers/users/users-controller.js";
+import mongoose from "mongoose";
+mongoose.connect('mongodb+srv://goergk:kai123@cluster0.xas8hiu.mongodb.net/movies?retryWrites=true&w=majority');
 const app = express();
 app.use(
     cors({
@@ -18,4 +19,15 @@ app.use(
     })
 );
 app.use(express.json());
-app.listen(4000);
+const port = 4000;
+
+UsersController(app);
+
+const welcome = (req, res) => {
+    res.send("Welcome to Node.js!");
+};
+app.get("/", welcome);
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+});
