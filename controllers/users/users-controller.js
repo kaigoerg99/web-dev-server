@@ -3,7 +3,7 @@ import * as dao from "../../users/users-dao.js";
 const login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    const user = await dao.findUserByCredentials(username, password);
+    const user = await dao.findUserByCredentials({username, password});
     if (user) {
         req.session["currentUser"] = user;
         res.json(user);
