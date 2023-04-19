@@ -9,7 +9,6 @@ const likeMovie = async (req, res) => {
     }
     let movie = await moviesDao.findMovieByMovieId(req.params.movieId);
     if (!movie) {
-        console.log(req.body);
         movie = await moviesDao.createMovie(req.body);
     }
     const like = await likesDao.createLike({

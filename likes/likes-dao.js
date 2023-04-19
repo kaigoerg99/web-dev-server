@@ -6,11 +6,11 @@ export const createLike = async (like) => {
 };
 
 export const findLikeByMovieId = async (movieId) => {
-    const likes = await likesModel.find({ movieId });
+    const likes = await likesModel.find(movieId);
     return likes;
 };
 
 export const findLikesByUserId = async (userId) => {
-    const likes = await likesModel.find({ userId });
+    const likes = await likesModel.find(userId);
     return likes;
 };
