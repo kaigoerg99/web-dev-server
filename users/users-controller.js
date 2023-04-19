@@ -1,4 +1,4 @@
-import * as dao from "../../users/users-dao.js";
+import * as dao from "./users-dao.js";
 
 const login = async (req, res) => {
     const username = req.body.username;
