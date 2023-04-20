@@ -19,6 +19,12 @@ const likeMovie = async (req, res) => {
     res.json(like);
 };
 
+const getMovie = async (req, res) => {
+    let movie = await moviesDao.findMovieByMovieId(req.params.movieId);
+    res.json(movie);
+}
+
 export default (app) => {
     app.post("/api/movies/:movieId/likes", likeMovie);
+    app.get("/api/movies/:movieId", getMovie);
 }
