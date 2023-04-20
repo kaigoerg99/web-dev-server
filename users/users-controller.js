@@ -40,7 +40,7 @@ const logout = async (req, res) => {
 };
 
 const getLikes = async (req, res) => {
-    const likes = await likesDao.findLikesByUserId(req.body);
+    const likes = await likesDao.findLikesByUserId(req.params.userId);
     res.json(likes);
 }
 
@@ -49,5 +49,5 @@ export default (app) => {
     app.post("/api/users/login", login);
     app.post("/api/users/logout", logout)
     app.get("/api/users/profile", profile);
-    app.get("/api/users/likes", getLikes);
+    app.get("/api/users/likes/:userId", getLikes);
 };
