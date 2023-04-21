@@ -1,5 +1,6 @@
 import * as dao from "./users-dao.js";
 import * as likesDao from "../likes/likes-dao.js";
+import * as usersDao from "./users-dao.js";
 
 const login = async (req, res) => {
     const username = req.body.username;
@@ -44,10 +45,16 @@ const getLikes = async (req, res) => {
     res.json(likes);
 }
 
+const getUser = async (req, res) => {
+    const user = await usersDao.findUserByUserId(req.params.userId);
+    res.json(user);
+}
+
 export default (app) => {
     app.post("/api/users/register", register);
     app.post("/api/users/login", login);
     app.post("/api/users/logout", logout)
     app.get("/api/users/profile", profile);
     app.get("/api/users/likes/:userId", getLikes);
+    app.get("/api/users/:userId", getUser);
 };
