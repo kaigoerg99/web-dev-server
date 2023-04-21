@@ -4,6 +4,7 @@ const movieSchema = new mongoose.Schema(
     {
         name: String,
         movieId: String,
+        image: String,
     },
     { collection: "movies" }
 );
