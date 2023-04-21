@@ -47,10 +47,16 @@ const reviewMovie = async (req, res) => {
 const getMovie = async (req, res) => {
     let movie = await moviesDao.findMovieByMovieId(req.params.movieId);
     res.json(movie);
+};
+
+const getReviews = async (req, res) => {
+    const reviews = await reviewsDao.findReviewByMovieId(req.params.movieId);
+    res.json(reviews);
 }
 
 export default (app) => {
     app.post("/api/movies/:movieId/likes", likeMovie);
     app.post("/api/movies/:movieId/review", reviewMovie);
     app.get("/api/movies/:movieId", getMovie);
+    app.get("/api/movies/getReviewsbyMovie/:movieId", getReviews);
 }
