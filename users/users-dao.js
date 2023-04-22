@@ -19,3 +19,8 @@ export const findUserByCredentials = async ({ username, password }) => {
     const user = await usersModel.findOne({ username, password });
     return user;
 };
+
+export const updateUser = async (id, user) => {
+    const status = await usersModel.updateOne({ _id: id }, user);
+    return status;
+  };

@@ -43,12 +43,18 @@ const logout = async (req, res) => {
 const getLikes = async (req, res) => {
     const likes = await likesDao.findLikesByUserId(req.params.userId);
     res.json(likes);
-}
+};
 
 const getUser = async (req, res) => {
     const user = await usersDao.findUserByUserId(req.params.userId);
     res.json(user);
-}
+};
+
+const updateUser = async (req, res) => {
+    const user = req.body;
+    const status = await usersDao.updateUser(req.params.id, user);
+    res.send(status);
+  };
 
 export default (app) => {
     app.post("/api/users/register", register);
@@ -57,4 +63,5 @@ export default (app) => {
     app.get("/api/users/profile", profile);
     app.get("/api/users/likes/:userId", getLikes);
     app.get("/api/users/:userId", getUser);
+    app.put("/api/users/:id", updateUser);
 };
