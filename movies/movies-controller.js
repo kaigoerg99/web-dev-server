@@ -39,6 +39,11 @@ const reviewMovie = async (req, res) => {
     res.json(review);
 };
 
+const deleteReview = async (req, res) => {
+    let deletedReview = await reviewsDao.deleteReviewById(req.body.reviewId);
+    res.json(deletedReview);
+}
+
 const getMovie = async (req, res) => {
     let movie = await moviesDao.findMovieByMovieId(req.params.movieId);
     res.json(movie);
@@ -63,6 +68,7 @@ export default (app) => {
     app.post("/api/movies/:movieId/likes", likeMovie);
     app.post("/api/movies/:movieId/review", reviewMovie);
     app.post("/api/movies/getMovies", getMovies);
+    app.post("/api/movies/deleteReview", deleteReview);
     app.get("/api/movies/:movieId", getMovie);
     app.get("/api/movies/getReviewsbyMovie/:movieId", getReviewsByMovie);
     app.get("/api/movies/getReviewsbyUser/:userId", getReviewsByUser);

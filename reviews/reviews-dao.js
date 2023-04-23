@@ -14,3 +14,8 @@ export const findReviewsByUserId = async (userId) => {
     const reviews = await reviewsModel.find({userId});
     return reviews;
 };
+
+export const deleteReviewById = async (reviewId) => {
+    const deletedReview = await reviewsModel.deleteOne({_id: reviewId});
+    return deletedReview;
+};
