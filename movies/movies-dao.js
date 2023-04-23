@@ -7,3 +7,8 @@ export const createMovie = async (movie) => {
     const newMovie = await movieModel.create(movie);
     return newMovie;
 };
+
+export const findMoviesByMovieIds = async (movieIds) => {
+    const res = await movieModel.find({ movieId : {$in : movieIds }});
+    return res;
+}

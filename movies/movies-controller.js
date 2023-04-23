@@ -36,11 +36,6 @@ const reviewMovie = async (req, res) => {
         movieId: movie.movieId,
         movieMongooseKey: movie._id,
     });
-    const like = await likesDao.createLike({
-        userId: currentUser._id,
-        movieId: movie.movieId,
-        movieMongooseKey: movie._id,
-    });
     res.json(review);
 };
 
@@ -49,14 +44,26 @@ const getMovie = async (req, res) => {
     res.json(movie);
 };
 
-const getReviews = async (req, res) => {
+const getMovies = async (req, res) => {
+    let movies = await moviesDao.findMoviesByMovieIds(req.body);
+    res.json(movies);
+}
+
+const getReviewsByMovie = async (req, res) => {
     const reviews = await reviewsDao.findReviewByMovieId(req.params.movieId);
     res.json(reviews);
-}
+};
+
+const getReviewsByUser = async (req, res) => {
+    const reviews = await reviewsDao.findReviewsByUserId(req.params.userId);
+    res.json(reviews);
+};
 
 export default (app) => {
     app.post("/api/movies/:movieId/likes", likeMovie);
     app.post("/api/movies/:movieId/review", reviewMovie);
+    app.post("/api/movies/getMovies", getMovies);
     app.get("/api/movies/:movieId", getMovie);
-    app.get("/api/movies/getReviewsbyMovie/:movieId", getReviews);
-}
+    app.get("/api/movies/getReviewsbyMovie/:movieId", getReviewsByMovie);
+    app.get("/api/movies/getReviewsbyUser/:userId", getReviewsByUser);
+};
